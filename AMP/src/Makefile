@@ -9,7 +9,7 @@ MPI_CC      = mpicc
 LD = -lm
 
 .SUFFIXES : .o .c
-Target:=Compress Compress_float Compress_approxiMedian Compress_float_approxiMedian Compress_eFAM Compress_eFAM_fined  SPC_count_float
+Target:=Compress Compress_float Compress_approxiMedian Compress_float_approxiMedian  
 
 all: $(Target)
 
