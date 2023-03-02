@@ -58,5 +58,5 @@ All datasets should be downloaded to AMP/inputData.
  
  4. If you would like to view the results by figures, we also provide the python scripts. 
  
-    Note that you should modify **nama_hat** in python files according to the actual path.
+    Note that you should modify **"nama_hat"** in python files according to the actual path.
 
