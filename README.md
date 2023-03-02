@@ -31,7 +31,7 @@ All datasets should be downloaded to AMP/inputData.
 
   **SZ** is error-bounded lossy compressor for HPC data.
   
-   Although SZ is not used in paper, the function for reading 3D data is used. The source code and installation can be found at https://github.com/szcompressor/SZ. Similarly， it should be installed to AMP/Compressor.
+   Although SZ is not used in paper, the function for reading 3D data is used. The source code and installation can be found at https://github.com/szcompressor/SZ. Similarly, it should be installed to AMP/Compressor.
   
 ## Set Makefile
 
