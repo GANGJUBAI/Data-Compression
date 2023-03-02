@@ -56,10 +56,7 @@ All datasets should be downloaded to AMP/inputData.
      sh runapproxMD_float.sh
  ```
  
+ 4. If you would like to view the results by figures, we also provide the python scripts. 
  
-Instruction for AMP:
+    Note that you should modify **nama_hat** in python files according to the actual path.
 
-1. Get the scientific applications, loseless compressors (including FPZIP, FPC) at https://sdrbench.github.io/ and https://dps.uibk.ac.at/fabian/datasets/.<br> 
-2. Set the compressors and set the Makefile in AMP/src/.<br>
-3. Follow the scripts in AMP/src/ for the results of MAC, CR, time overhead, etc.<br>
-4. We also provide the python scripts to plot the result figures. 
