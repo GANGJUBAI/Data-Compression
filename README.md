@@ -35,16 +35,26 @@ All datasets should be downloaded to AMP/inputData.
   
 ## Set Makefile
 
- 1.open Makefile and modify ''to/path'' in **Tareget** according to the actual path
+ 1.Open Makefile and modify "to/path" in **Tareget** according to the actual path.
  
- 2.AMP can be buily using [GNU make](https://www.gnu.org/software/make/):
+ 2.AMP can be built using [GNU make](https://www.gnu.org/software/make/):
  ```    
      cd AMP
      make
  ```
+ ## Set Shell Script
+ 1. Open all shell script files and modify "to/path" in **Path** according to the actual path.
  
-
+ 2. Build a folder **results** to save results. It should be AMP/src/results.
  
+ 3. Run all shell script files 
+  ```    
+     cd AMP
+     sh runCompress.sh
+     sh runCompress_float.sh
+     sh runapproxMD.sh
+     sh runapproxMD_float.sh
+ ```
  
  
 Instruction for AMP:
