@@ -10,9 +10,11 @@
 | SCALE-LETKF| Climate simulation | 1200x1200x98 | float |
 | CESM | Climate simulation | 1800x3600x26 | float |
 | astro_pt| Transport simulation | 512x256x640 | double | float |
-| wave | Wave propagation simulation | 512x512x512 |d ouble |
+| wave | Wave propagation simulation | 512x512x512 |double |
 
 The first five datasets can be found at Scientific Data Reduction Benchmarks suite (https://sdrbench.github.io/) and the other can be found at Datasets for Benchmarking Floating-Point Compressors suite (https://dps.uibk.ac.at/~fabian/datasets/)
+
+All datasets should be downloaded to AMP/inputData.
 ## Compressor
 ### 1.FPC
 
@@ -33,6 +35,18 @@ The first five datasets can be found at Scientific Data Reduction Benchmarks sui
   
 ## Set Makefile
 
+ 1.open Makefile and modify ''to/path'' in **Tareget** according to the actual path
+ 
+ 2.AMP can be buily using [GNU make](https://www.gnu.org/software/make/):
+ ```    
+     cd AMP
+     make
+ ```
+ 
+
+ 
+ 
+ 
 Instruction for AMP:
 
 1. Get the scientific applications, loseless compressors (including FPZIP, FPC) at https://sdrbench.github.io/ and https://dps.uibk.ac.at/fabian/datasets/.<br> 
