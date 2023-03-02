@@ -42,12 +42,12 @@ All datasets should be downloaded to AMP/inputData.
      cd AMP
      make
  ```
- ## Set Shell Script
+ ## Run script
  1. Open all shell script files and modify "to/path" in **Path** according to the actual path.
  
  2. Build a folder **results** to save results. It should be AMP/src/results.
  
- 3. Run all shell script files 
+ 3. Run all shell script files to obtain the results of CR and time overhead.
   ```    
      cd AMP
      sh runCompress.sh
