@@ -37,23 +37,23 @@ computeCnt_IMPL(double);
 	double sum;								    	\
 	double mean;								    	\
 	double delta;								    	\
-	double squareSum;							    		\
+	double squareSum;							    	\
 	int cdfSum=0;									\
-	int *Cnt=(int*)calloc(groupNum,sizeof(int));						\
+	int *Cnt=(int*)calloc(groupNum,sizeof(int));					\
 	sum=0;										\
 	var=0;										\
 	squareSum=0;									\
-	for(int i=0;i< dataLength;i++){								\
-		sum += Array[i];								\
+	for(int i=0;i< dataLength;i++){							\
+		sum += Array[i];							\
 	}										\
 	mean=sum/dataLength;								\
-	for(int i=0;i<dataLength;i++){								\
-		var += (Array[i]-mean)*(Array[i]-mean);						\
+	for(int i=0;i<dataLength;i++){							\
+		var += (Array[i]-mean)*(Array[i]-mean);					\
 	}										\
-	delta=sqrt(var/dataLength);								\
-	if(-Eps < delta && delta <Eps){								\
-	      free(Cnt);									\
-      	      return mean;									\
+	delta=sqrt(var/dataLength);							\
+	if(-Eps < delta && delta <Eps){							\
+	      free(Cnt);								\
+      	      return mean;								\
 	}										\
 											\
 	computeCnt(T)(Array,groupNum,dataLength,Cnt,mean,delta);			\
