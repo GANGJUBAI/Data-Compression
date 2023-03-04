@@ -11,8 +11,8 @@ do
        echo $err
        echo "##########  $i is being compressed  with BFPRTrand ##########"
 
-       Path=" /home/lff/SC2021src/inputData/Miranda/"$i".d64"
-       Source="/home/lff/SC2021src/src/results/TCPS/BFPRTrand_Compress.result1"
+       Path=" /to/path/inputData/Miranda/"$i".d64"
+       Source="/to/path/src/results/TCPS/BFPRTrand_Compress.result1"
        ./Compress_BFPRTrand  $Path 256 384 384 >> $Source
 
        echo "##########  compress $i is done  ##########"
@@ -26,8 +26,8 @@ do
        echo $err
        echo "##########  $i is being compressed  with BFPRTrand ##########"
 
-       Path=" /home/lff/SC2021src/inputData/Miranda/"$i".d64"
-       Source="/home/lff/SC2021src/src/results/TCPS/BFPRTrand_Compress.result1"
+       Path=" /to/path/inputData/Miranda/"$i".d64"
+       Source="/to/path/src/results/TCPS/BFPRTrand_Compress.result1"
        ./Compress_BFPRTrand  $Path 384 384 256 >> $Source
 
        echo "##########  compress $i is done  ##########"
@@ -38,8 +38,8 @@ python3 find.py $Source
 echo $err
 echo "##########  astro_pt is being compressed  with BFPRTrand ##########"
 
-Path="/home/lff/SC2021src/inputData/astro_pt.f64"
-Source="/home/lff/SC2021src/src/results/TCPS/BFPRTrand_Compress.result2"
+Path="/to/path/inputData/astro_pt.f64"
+Source="/to/path/src/results/TCPS/BFPRTrand_Compress.result2"
 ./Compress_BFPRTrand $Path 256 512 640 >> $Source
 
 echo "##########  compress astro_pt is done  ##########"
@@ -49,8 +49,8 @@ python3 find.py $Source
 echo $err
 echo "##########  wave is being compressed  with BFPRTrand ############"
 
-Path="/home/lff/SC2021src/inputData/wave.f64"
-Source="/home/lff/SC2021src/src/results/TCPS/BFPRTrand_Compress.result2"
+Path="/to/path/inputData/wave.f64"
+Source="/to/path/src/results/TCPS/BFPRTrand_Compress.result2"
 ./Compress_BFPRTrand $Path 512 512 512 >> $Source
 
 echo "##########  compress wave is done  #############"

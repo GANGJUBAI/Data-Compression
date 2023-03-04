@@ -28,8 +28,8 @@ do
        echo $err 
        echo " ******************** $i is being compressed with qselect ***********************************"
        
-       Path=" /home/lff/SC2021src/inputData/Hurricane-ISABEL/100x500x500/"$i".bin.f32" 
-       Source="/home/lff/SC2021src/src/results/TCPS/qselect_float.result1"
+       Path=" /to/path/inputData/Hurricane-ISABEL/100x500x500/"$i".bin.f32" 
+       Source="/to/path/src/results/TCPS/qselect_float.result1"
        ./Compress_float_qselect $Path 500 500 100 >> $Source
 
        echo "**************************** compress $i is done *******************************"
@@ -43,8 +43,8 @@ do
        echo $err 
        echo " ******************** $i is being compressed with qselect ***********************************"
       
-       Path=" /home/lff/SC2021src/inputData/EXASKY-NYX/"$i".f32" 
-       Source="/home/lff/SC2021src/src/results/TCPS/qselect_float.result2"
+       Path=" /to/path/inputData/EXASKY-NYX/"$i".f32" 
+       Source="/to/path/src/results/TCPS/qselect_float.result2"
        ./Compress_float_qselect $Path 512 512 512 >> $Source
 
        echo "**************************** compress $i is done *******************************"
@@ -58,8 +58,8 @@ do
        echo $err 
        echo " ******************** $i is being compressed with qselect ***********************************"
        
-       Path=" /home/lff/SC2021src/inputData/SCALE/"$i".f32"
-       Source="/home/lff/SC2021src/src/results/TCPS/qselect_float.result3"
+       Path=" /to/path/inputData/SCALE/"$i".f32"
+       Source="/to/path/src/results/TCPS/qselect_float.result3"
        ./Compress_float_qselect $Path 1200 1200 98 >> $Source
 
        echo "**************************** compress $i is done *******************************"
@@ -73,8 +73,8 @@ do
        echo $err 
        echo " ******************** $i is being compressed with qselect ***********************************"
        
-       Path=" /home/lff/SC2021src/inputData/CESM-ATM/"$i".f32"
-       Source="/home/lff/SC2021src/src/results/TCPS/qselect_float.result4"
+       Path=" /to/path/inputData/CESM-ATM/"$i".f32"
+       Source="/to/path/src/results/TCPS/qselect_float.result4"
        ./Compress_float_qselect $Path 3600 1800 26 >> $Source
 
        echo "**************************** compress $i is done *******************************"

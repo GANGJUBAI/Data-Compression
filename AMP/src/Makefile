@@ -6,8 +6,8 @@ CPPFLAGS =-fPIC
 LDFLAGS =-lstdc++
 LD = -lm
 
-LIBS = -L /home/lff/Compressor/SZ/lib/ -lSZ  -L /home/lff/Compressor/SZ/lib/ -lzstd -L /home/lff/Compressor/SZ/lib -lzlib -lm -L /home/lff/Compressor/fpzip/lib/ -lfpzip
-INCLUDES = -I /home/lff/Compressor/SZ/sz/include/ -I /home/lff/Compressor/fpzip/include/
+LIBS = -L /to/path/Compressor/SZ/lib/ -lSZ  -L /to/path/Compressor/SZ/lib/ -lzstd -L /to/path/Compressor/SZ/lib -lzlib -lm -L /home/lff/Compressor/fpzip/lib/ -lfpzip
+INCLUDES = -I /to/path/Compressor/SZ/sz/include/ -I /to/path/Compressor/fpzip/include/
 
 
 .SUFFIXES : .c .cpp
