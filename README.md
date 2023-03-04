@@ -54,6 +54,10 @@ All datasets should be downloaded to AMP/inputData.
      sh runCompress_float.sh
      sh runapproxMD.sh
      sh runapproxMD_float.sh
+     sh runqselect.sh
+     sh runqselect_float.sh
+     sh runBFPRTrand.sh
+     sh runBFPRTrand_float.sh
  ```
  
  4. If you would like to view the results by figures, we also provide the python scripts. 
