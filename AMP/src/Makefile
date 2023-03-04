@@ -1,24 +1,30 @@
 #Author: Fenfang Li
-#@Time: 2022/12
+#Time: 2023/3
 
-GFORTRAN    = gfortran -Wall
-CC          = g++ -O3 -g 
-#CC          = gcc -O2 -wall
-MPI_FORTRAN = mpif90 -Wall
-MPI_CC      = mpicc
+CPP = g++ -O3 -g 
+CPPFLAGS =-fPIC
+LDFLAGS =-lstdc++
 LD = -lm
 
-.SUFFIXES : .o .c
-Target:=Compress Compress_float Compress_approxiMedian Compress_float_approxiMedian  
+LIBS = -L /home/lff/Compressor/SZ/lib/ -lSZ  -L /home/lff/Compressor/SZ/lib/ -lzstd -L /home/lff/Compressor/SZ/lib -lzlib -lm -L /home/lff/Compressor/fpzip/lib/ -lfpzip
+INCLUDES = -I /home/lff/Compressor/SZ/sz/include/ -I /home/lff/Compressor/fpzip/include/
+
+
+.SUFFIXES : .c .cpp
+Target1:=Compress Compress_float Compress_approxiMedian Compress_float_approxiMedian
+Target2:=Compress_qselect Compress_float_qselect Compress_BFPRTrand Compress_float_BFPRTrand
+Target=$(Target1) $(Target2)
 
 all: $(Target)
 
-
 $(Target): %:%.o
-	$(CC) $(LD) $< -o $@  -L /to/path/Compressor/SZ/lib/ -lSZ  -L /to/path/Compressor/SZ/lib/ -lzstd -L /to/path/Compressor/SZ/lib -lzlib -lm -L /to/path/Compressor/fpzip/lib/ -lfpzip -L /to/path/Compressor/zfp/lib/ -lzfp -lpthread  -L /to/path/Compressor/ndzip/build/ -lndzip 
+	@echo "############################  Compile is starting!  ###############################"
+	$(CPP) $(LD) $< -o $@ $(LIBS)
+	@echo "############################  Compile is completed!  ##############################"
 %.o : %.c
-	$(CC) -c $(*F).c  -I /to/path/Compressor/SZ/sz/include/ -I /to/path/Compressor/zfp/include/ -I /to/path/Compressor/fpzip/include/ 
-
+	$(CPP) -c $(*F).c  $(INCLUDES) $(CPPFLAGS) $(LDFLAGS)
+%.o : %.cpp
+	$(CPP) -c $(*F).cpp $(INCLUDES) $(CPPFLAGS) $(LDFLAGS)
 clean :
 	/bin/rm -f *.o $(Target) 
 

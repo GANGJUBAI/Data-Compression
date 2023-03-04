@@ -1,19 +1,15 @@
 //Author: Fenfang Li
-//@Time: 2022/12
+//@Time: 2023/3
 
-#include "sz.h"
+#include "sz.h" 
 #include <stdio.h>
 #include <stdlib.h>
 #include "fpzip.h"
 #include "fpc.h"
 #include "SPC/SPC.h"
-#include "baseline.h"
-#include <sys/time.h>
+#include <algorithm>
 
-int cmpfunc (const void * a, const void * b) {
-	return ( *(int*)a - *(int*)b );
-}
-
+using namespace std;
 
 /* compress doubleing-point data */
 	static size_t
@@ -63,7 +59,6 @@ fpzip_double_array(const double* field, int nx, int ny, int nz, int prec)
 	return outbytes;
 }
 
-
 int main(int argc, char* argv[])
 {
 
@@ -90,7 +85,7 @@ int main(int argc, char* argv[])
 		r5 = atoi(argv[6]);
 		sprintf(medianFilePath,"%s",argv[7]);
 
-//	sprintf(outputFilePath, "%s", oriFilePath);
+	sprintf(outputFilePath, "%s", oriFilePath);
 	FILE *ori_fp=fopen(oriFilePath,"r");
 	if(ori_fp==NULL){
 		printf("Cannot open file %s.\n",oriFilePath);	
@@ -98,10 +93,8 @@ int main(int argc, char* argv[])
 	}
 	size_t dataLength = computeDataLength(r5,r4,r3,r2,r1);
 	int rows, cols,layers;
-	rows=r2;
-	cols=r1;
+	rows=r2;cols=r1;
 	layers=r3;
-	
 	int sizeN=rows*cols;
 	int i,j;
 
@@ -109,55 +102,53 @@ int main(int argc, char* argv[])
 
 	fread(data,dataLength,sizeof(double),ori_fp);
 	fclose(ori_fp);
+	ori_fp=NULL;
 
+
+	double *C =(double *)malloc(sizeN*sizeof(double));
 
 	int c_size_fpc;
-	int c_size_fpzip; 
-	double *C =(double *)malloc(sizeN*sizeof(double));
-	double *delta_X  =(double *)malloc(layers*sizeof(double));
-	int findMedianStage=0;
-    double mean=0;
-    double sigma=0;
-    double mediantemp=0;
-	int distriIndex=0;
-	
+	int c_size_fpzip;
 
-	gettimeofday( &start, NULL );
-        for(i=0;i<rows;i++)
+
+	const size_t m = layers/2;
+	double *delta_X  =(double *)malloc(layers*sizeof(double));
+	gettimeofday(&start, NULL);
+	for(i=0;i<rows;i++)
                 for(j=0;j<cols;j++){
                         if(j==0)
                         {
                                 for(int k=0;k<layers;k++){
                                         delta_X[k]=data[k*sizeN+i*cols+j];
                                 }
-        			
-        			mediantemp=medianFind(double)(delta_X,8,layers);
-				
-
-                                C[i*cols+j]= mediantemp;
+				nth_element(delta_X, delta_X+ m, delta_X+ layers);
+                                C[i*cols+j]= delta_X[layers/2];
                         }
                         else
                         {
                                 for(int k=0;k<layers;k++){
                                         delta_X[k]=data[k*sizeN+i*cols+j-1]-data[k*sizeN+i*cols+j];
                                 }
-					mediantemp =medianFind(double)(delta_X,8,layers);
+				nth_element(delta_X, delta_X+ m, delta_X+ layers);
+                                double median=delta_X[layers/2];
 
-                                C[i*cols+j]=C[i*cols+j-1]-mediantemp;
+                                C[i*cols+j]= C[i*cols+j-1]-median;
+
                         }
                 }
-	gettimeofday( &end, NULL );
+	gettimeofday(&end,NULL);
 	double endtime=(double)1000 * (end.tv_sec - start.tv_sec) + ((end.tv_usec - start.tv_usec) / 1000.0);
-	printf("fpc+/fpzip+ approximate median time is %fms\n",endtime);
-
-    gettimeofday( &start, NULL );
-	for(i=0;i<rows;i++)
+	printf("fpc ori+ qselect median time is %fms\n",endtime);
+	
+	gettimeofday(&start, NULL);
+        for(i=0;i<rows;i++)
                 for(j=0;j<cols;j++)
                         for(int k=0;k<layers;k++)
                                 data[k*sizeN+i*cols+j]-= C[i*cols+j];
-	gettimeofday( &end, NULL );
+	gettimeofday(&end,NULL);
 	endtime=(double)1000 * (end.tv_sec - start.tv_sec) + ((end.tv_usec - start.tv_usec) / 1000.0);
-	printf("fpc+/fpzip+ with approxMD precondition time is %fms\n",endtime);
+	printf("fpc+/fpzip+ with qselect precondition time is %fms\n",endtime);
+
 
 	FILE *fp=fopen("./median_value/ori+","w");
 	if(fp==NULL){
@@ -167,36 +158,36 @@ int main(int argc, char* argv[])
 	fwrite(data,dataLength, sizeof(double),fp);
 	fclose(fp);
 	fp=NULL;
+	
 
-
-	gettimeofday( &start, NULL );
 	fp=fopen("./median_value/ori+","r");
 	if(fp==NULL){
 		printf("Cannot open file %s.fpc\n",oriFilePath);
 		return 0;
 	}
 
+	gettimeofday( &start, NULL );
 	c_size_fpc=FPC_Compress(20,fp);
-	gettimeofday( &end, NULL);
+	gettimeofday(&end,NULL);
 	endtime=(double)1000 * (end.tv_sec - start.tv_sec) + ((end.tv_usec - start.tv_usec) / 1000.0);
-	printf("fpc ori+ with approxMD compress time is %fms\n",endtime);
+	printf("fpc ori+ qselect compress time is %fms\n",endtime);
 	fclose(fp);
 	fp=NULL;
-	printf("fpc ori+ compression ratio=%lf\n",(double)dataLength*sizeof(double)/c_size_fpc);
-
+	printf("fpc ori+ qselect compression ratio=%lf\n",(double)dataLength*sizeof(double)/c_size_fpc);
+	
 	gettimeofday( &start, NULL );
 	c_size_fpzip=fpzip_double_array(data, dataLength, 1, 1, 64);
-    gettimeofday( &end, NULL );
+        gettimeofday(&end,NULL);
 	endtime=(double)1000 * (end.tv_sec - start.tv_sec) + ((end.tv_usec - start.tv_usec) / 1000.0);
-	printf("fpzip ori+ with approxMD compress time is %fms\n",endtime);
-	printf("fpzip ori+ compression ratio=%lf\n",(double)dataLength*sizeof(double)/c_size_fpzip);
-	
+	printf("fpzip ori+ qselect compress time is %fms\n",endtime);
+	printf("fpzip ori+ qselect compression ratio=%lf\n",(double)dataLength*sizeof(double)/c_size_fpzip);
+
+          	
 	free(data);
 	free(delta_X);
 	free(C);
 	data=NULL;
 	delta_X=NULL;
 	C=NULL;
-
 	return 0;
 }
