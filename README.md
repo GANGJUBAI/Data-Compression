@@ -59,8 +59,13 @@ All datasets should be downloaded to AMP/inputData.
      sh runBFPRTrand.sh
      sh runBFPRTrand_float.sh
  ```
- 
+
  4. If you would like to view the results by figures, we also provide the python scripts. 
  
     Note that you should modify **"nama_hat"** in python files according to the actual path.
 
+## Documentation
+More information and experimental results can be found in the following paper:
+* Fenfang Li, Huizhang Luo, Junqi Wang, Yida Li, Zhuo Tang, and Kenli Li. AMP: Total Variation Reduction for Lossless Compression via Approximate Median-based Preconditioning [J]. ACM Transactions on Embedded Computing Systems (TEPS). Just Accepted, 2023. 
+
+**If you use AMP in your work, please cite the paper above.**
